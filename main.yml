@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  # - include: provision-vm.yml
+  - include: install-wordpress.yml

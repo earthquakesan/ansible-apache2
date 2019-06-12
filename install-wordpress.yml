@@ -1,0 +1,40 @@
+- name: Create a network with options
+  docker_network:
+    name: "docker-network"
+# - name: run postgres
+#   docker_container:
+#     name: postgres
+#     purge_networks: yes
+#     networks:
+#       - name: "docker-network"
+#     image: postgres:11.3-alpine
+#     env:
+#       POSTGRES_USER: "wordpress"
+#       POSTGRES_PASSWORD: "wordpress"
+#       POSTGRES_DB: "wordpress"
+- name: run mysql
+  docker_container:
+    name: mysql
+    purge_networks: yes
+    networks:
+      - name: "docker-network"
+    image: mysql:5.7.26
+    env:
+      MYSQL_USER: "wordpress"
+      MYSQL_PASSWORD: "wordpress"
+      MYSQL_DATABASE: "wordpress"
+      MYSQL_ROOT_PASSWORD: "wordpress"
+- name: run wordpress
+  docker_container:
+    purge_networks: yes
+    networks:
+      - name: "docker-network"
+    name: wordpress
+    image: wordpress:5.2.1-php7.1-apache
+    ports:
+      - 80:80
+    env:
+      WORDPRESS_DB_HOST: "mysql"
+      WORDPRESS_DB_USER: "wordpress"
+      WORDPRESS_DB_PASSWORD: "wordpress"
+      WORDPRESS_DB_NAME: "wordpress"
