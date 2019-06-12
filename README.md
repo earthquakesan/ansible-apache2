@@ -10,6 +10,8 @@ Example repository on how to deploy wordpress in Virtualbox (Ubuntu 18.04) using
 
 ## HowTo
 
+Clone this repo, then execute:
+
 ```
 vagrant up
 ```
